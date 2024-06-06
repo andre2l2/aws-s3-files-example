@@ -1,0 +1,16 @@
+###
+
+GET {{host}}/buckets
+Content-Type: application/json
+
+###
+
+POST {{host}}/list-objects
+Content-Type: application/json
+
+{
+  "bucket": "gmvbf",
+  "maxKeys": 5
+}
+
+###
