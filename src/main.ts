@@ -1,9 +1,11 @@
 import {
   ListBucketsCommand,
   ListObjectsCommand,
+  PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
 import express from "express";
+import fs from "node:fs";
 
 import EnvClient from "./infrastructure/env/env-client";
 
@@ -31,6 +33,24 @@ app.post("/list-objects", async (req, res) => {
     new ListObjectsCommand({ Bucket: bucket, MaxKeys: maxKeys })
   );
   return res.json(response);
+});
+
+app.put("/put-object", async (req, res) => {
+  const { bucket, path } = req.body;
+
+  const buffer = fs.readFileSync("./public/img/image.png");
+
+  await client.send(
+    new PutObjectCommand({
+      Bucket: bucket,
+      Key: path,
+      ContentType: "image/",
+      ACL: "public-read-write",
+      Body: buffer,
+    })
+  );
+
+  return res.send("ok");
 });
 
 app.listen(EnvClient.PORT, () => {

@@ -9,8 +9,18 @@ POST {{host}}/list-objects
 Content-Type: application/json
 
 {
-  "bucket": "gmvbf",
-  "maxKeys": 5
+  "bucket": "any_bucket",
+  "maxKeys": 1
+}
+
+###
+
+PUT {{host}}/put-object
+Content-Type: application/json
+
+{
+  "bucket": "any_bucket",
+  "path": "file/test.png"
 }
 
 ###
